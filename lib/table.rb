@@ -2,21 +2,26 @@ require_relative 'robot'
 
 class Table
 
-    SOUTH_WEST_CORNER = "0,0"
-
     def inititalize
-        @robot_location=robot.robot_location
+        @robot_current_location=robot.current_location
     end
 
     def isRobotSafe(x_axis, y_axis)
-        puts "here"
-        puts x_axis >=5
-        puts y_axis >=5
-
-        x_axis || y_axis >= 5 ? false : true
+        if x_axis >= 5 || y_axis >= 5 
+            puts "1"
+            false 
+        elsif x_axis + 1 >= 5
+            puts "2"
+            false
+        elsif y_axis + 1 >= 5
+            puts "3"
+            false
+        else 
+            puts "4"
+             true
+        end
+        # // desired x axis + 1 in said direction is over 5 fail
+        # // or desired y axis + 1 in said direction is over 5 fail      
     end
 
-
-    def dangerZone
-    end
 end
