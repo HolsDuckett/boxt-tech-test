@@ -2,57 +2,55 @@ require_relative 'table'
 
 class Robot
 
-    attr_reader :current_location
+    CARDINAL_DIRECTIONS = %w[NORTH, EAST, SOUTH, WEST]
 
-    DIRECTIONS_IN_ORDER = ["NORTH", "EAST", "SOUTH", "WEST"]
-
-    def initialize(x_axis, y_axis, direction)
-        @current_location=[@x_axis, @y_axis, @projected_direction ]
+    def initialize()
         @projected_direction=direction
         @x_axis=x_axis
         @y_axis=y_axis
     end
 
     def place(x_axis, y_axis, direction)
-        if Table.new.isRobotSafe(x_axis, y_axis) 
+        if Table.new.isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
             @projected_direction = direction
             @x_axis = x_axis
             @y_axis = y_axis
         else
             warning_message
         end
-        # // check table class if the new corrdinates are off the table (5,5)
-        # // if they are not then update the new robot location and place the robot on the table
-        # // update the current face and x and y axis vars
+    end
+    
+    def update_robots_coordinates
+        if direction_facing == CARDINAL_DIRECTIONS[0] 
+            @y_axis += 1
+        elsif direction_facing == CARDINAL_DIRECTIONS[1]
+            @x_axis += 1
+        elsif direction_facing == CARDINAL_DIRECTIONS[2] 
+            @y_axis -= 1
+        elsif direction_facing == CARDINAL_DIRECTIONS[3]
+            @x_axis -= 1
+        end
     end
 
     def move
-        if Table.new.isRobotSafe(@x_axis, @y_axis) 
-            puts "we need a new direction #{@x_axis}#{@_axis}"
-            @x_axis = x_axis
-            @y_axis = y_axis
+        if Table.new.isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
+        update_robots_coordinates
         else
             warning_message
         end
-        # // is this a killer move? (current direction and wanted move - will this kill us - xecute warning message)
-        # // if okay figure out new cooridnates and place robot on new square
-        # // update report vars (x axis, y axis, direction)
     end
 
     def left
-        current_direction_index = DIRECTIONS_IN_ORDER.index(@projected_direction)
-        new_direction = DIRECTIONS_IN_ORDER[current_direction_index - 1]
+        current_direction_index = CARDINAL_DIRECTIONS.index(@projected_direction)
+        new_direction_index = current_direction_index === 0 ? CARDINAL_DIRECTIONS.length - 1 : current_direction_index - 1
         @projected_direction = new_direction
-        # //figure out the new projection based on current direction (anti-clockwise)
-        # //update projected direction
     end
 
     def right
-        current_direction_index = DIRECTIONS_IN_ORDER.index(@projected_direction)
-        new_direction = DIRECTIONS_IN_ORDER[current_direction_index + 1]
+        current_direction_index = CARDINAL_DIRECTIONS.index(@projected_direction)
+        new_direction_index = current_direction_index === CARDINAL_DIRECTIONS.length - 1 ? 0 : current_direction_index + 1
+        new_direction = CARDINAL_DIRECTIONS[new_direction_index]
         @projected_direction = new_direction
-        # //figure out the new projection based on current direction (clockwise)
-        # //update projected direction
     end
 
     def report
@@ -60,10 +58,8 @@ class Robot
     end
 
     def warning_message
-        puts "Oooft that was a close one. Chose a differnce place or move."
+        puts "Oooft that was a close one; you nearly had a tumble off the table there. Please try a different command."
     end
 
 
 end
-
-Robot.new("y","x","WEST")
