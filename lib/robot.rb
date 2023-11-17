@@ -1,17 +1,17 @@
 require_relative 'table'
 
 class Robot
-
+    @table = Table.new
     CARDINAL_DIRECTIONS = %w[NORTH, EAST, SOUTH, WEST]
 
-    def initialize()
+    def initialize(x_axis, y_axis, direction)
         @projected_direction=direction
         @x_axis=x_axis
         @y_axis=y_axis
     end
 
     def place(x_axis, y_axis, direction)
-        if Table.new.isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
+        if  table.isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
             @projected_direction = direction
             @x_axis = x_axis
             @y_axis = y_axis
@@ -33,7 +33,7 @@ class Robot
     end
 
     def move
-        if Table.new.isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
+        if table.isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
         update_robots_coordinates
         else
             warning_message
