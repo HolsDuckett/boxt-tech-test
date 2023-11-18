@@ -16,7 +16,7 @@ class Robot
   end
 
   def report
-    puts "Report: #{@x_axis},#{@y_axis},#{@projected_direction}"
+    puts "#{@x_axis},#{@y_axis},#{@projected_direction}"
   end
 
   def warning_message

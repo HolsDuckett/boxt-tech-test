@@ -21,7 +21,7 @@ describe Robot do
     it 'outputs a report to the console' do
       robot = Robot.new(2, 0, 'SOUTH')
       robot.report
-      expect(robot.x_axis).to eq(2)
+      expect(robot).to have_received(:puts).with('2,0,SOUTH')
     end
   end
 
