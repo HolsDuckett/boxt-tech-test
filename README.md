@@ -1,5 +1,7 @@
 # BOXT TOY ROBOT
 
+![robot dancing](https://media3.giphy.com/media/tczJoRU7XwBS8/giphy.gif)
+
 ### Description
 
 - The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units
@@ -12,15 +14,15 @@ destruction. Any movement that would result in the robot falling from the table 
 prevented, however further valid movement commands must still be allowed
 
 ### Prerqusites
-Ruby installed
-A taste for the fun things in life (aka robot applications 🤖)
+- Ruby installed
+- A taste for the fun things in life (aka robot applications 🤖)
 
 ### How to get started?
-Clones this repository
-cd into project repo
-run bundle to install all gems
-In your console run `irb -r ./main.rb` 
-And enjoy ;)
+1. Clones this repository
+2. cd into project repo
+3. run bundle to install all gems
+4. In your console run `irb -r ./main.rb` 
+5. And enjoy ;)
 
 Accepted commands are: 
 * PLACE X,Y,F ➡️ (X: number, Y: number F: cardinal direction e.g NORTH, EAST, SOUTH or WEST)
@@ -31,7 +33,6 @@ Accepted commands are:
 
 ### Running tests
 To run the tests:
-cd into project repo
 run `rspec`
 
 ### Test data and Results
