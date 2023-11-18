@@ -1,17 +1,19 @@
 require_relative 'table'
 
 class Robot
-    @table = Table.new
-    CARDINAL_DIRECTIONS = %w[NORTH, EAST, SOUTH, WEST]
+    CARDINAL_DIRECTIONS = %w[{NORTH: }, EAST, SOUTH, WEST]
+    MAX_TABLE_POSITION_LIMIT = 4
 
     def initialize(x_axis, y_axis, direction)
         @projected_direction=direction
         @x_axis=x_axis
         @y_axis=y_axis
+        place(x_axis, y_axis, direction)
+        puts "Wooo we have a robot!"
     end
 
     def place(x_axis, y_axis, direction)
-        if  table.isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
+        if  isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
             @projected_direction = direction
             @x_axis = x_axis
             @y_axis = y_axis
@@ -32,13 +34,24 @@ class Robot
         end
     end
 
-    def move
-        if table.isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
+    def move 
+        new_move
+        if isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
         update_robots_coordinates
         else
             warning_message
         end
     end
+
+    def new_move
+        // if youre facing north y + 1
+        // if youre facing east x + 1
+        // if youre facing south y - 1
+        // if youre facing west x - 1
+
+
+    end
+
 
     def left
         current_direction_index = CARDINAL_DIRECTIONS.index(@projected_direction)
@@ -59,6 +72,29 @@ class Robot
 
     def warning_message
         puts "Oooft that was a close one; you nearly had a tumble off the table there. Please try a different command."
+    end
+
+    def isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction_facing)
+        requested_position = [x_axis.to_i, y_axis.to_i]
+        request_position.each { |position| position > MAX_TABLE_POSITION_LIMIT }
+
+        # refactor
+        puts x_axis > 4
+        puts y_axis
+        puts direction_facing
+        if x_axis > 4 || y_axis > 4
+            return false 
+        elsif direction_facing == "NORTH" 
+            y_axis == 4 ? false : true
+        elsif direction_facing == "EAST" 
+            x_axis == 4 ? false : true
+        elsif direction_facing == "SOUTH" 
+            y_axis == 0 ? false : true
+        elsif direction_facing == "WEST" 
+            x_axis == 0 ? false : true
+        else 
+            true
+        end
     end
 
 
