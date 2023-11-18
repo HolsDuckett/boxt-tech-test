@@ -29,18 +29,6 @@ class Robot
             warning_message
         end
     end
-    
-    # def update_robots_coordinates
-    #     if direction_facing == CARDINAL_DIRECTIONS[0] 
-    #         @y_axis += 1
-    #     elsif direction_facing == CARDINAL_DIRECTIONS[1]
-    #         @x_axis += 1
-    #     elsif direction_facing == CARDINAL_DIRECTIONS[2] 
-    #         @y_axis -= 1
-    #     elsif direction_facing == CARDINAL_DIRECTIONS[3]
-    #         @x_axis -= 1
-    #     end
-    # end
 
     def move 
         next_possible_coordinates = possible_next_move
@@ -53,15 +41,16 @@ class Robot
     end
 
     def left
-        current_direction_index = CARDINAL_DIRECTIONS.index(@projected_direction)
+        current_direction_index = CARDINAL_DIRECTIONS.keys.index(@projected_direction)
         new_direction_index = current_direction_index === 0 ? CARDINAL_DIRECTIONS.length - 1 : current_direction_index - 1
+        new_direction = CARDINAL_DIRECTIONS.keys[new_direction_index]
         @projected_direction = new_direction
     end
 
     def right
-        current_direction_index = CARDINAL_DIRECTIONS.index(@projected_direction)
+        current_direction_index = CARDINAL_DIRECTIONS.keys.index(@projected_direction)
         new_direction_index = current_direction_index === CARDINAL_DIRECTIONS.length - 1 ? 0 : current_direction_index + 1
-        new_direction = CARDINAL_DIRECTIONS[new_direction_index]
+        new_direction = CARDINAL_DIRECTIONS.keys[new_direction_index]
         @projected_direction = new_direction
     end
 
