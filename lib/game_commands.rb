@@ -1,9 +1,12 @@
 require_relative 'robot'
 
+# frozen_string_literal: true
+
+# Service to parse commands from the user to the robot service
 class GameCommands
   attr_reader :robot
 
-  COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT]
+  COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
   def correct_initial_command_check(user_command)
     # //does inital check to ensure only place is called first

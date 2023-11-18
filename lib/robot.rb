@@ -1,7 +1,8 @@
-require_relative 'table'
+# frozen_string_literal: true
 
+# Service to update the initialized robots location on a game table
 class Robot
-  CARDINAL_DIRECTIONS = { 'NORTH' => ['y', 1], 'EAST' => ['x', 1], 'SOUTH' => ['y', -1], 'WEST' => ['x', -1] }
+  CARDINAL_DIRECTIONS = { 'NORTH' => ['y', 1], 'EAST' => ['x', 1], 'SOUTH' => ['y', -1], 'WEST' => ['x', -1] }.freeze
   MAX_TABLE_POSITION_LIMIT = 4
 
   def initialize(x_axis, y_axis, direction)
@@ -21,7 +22,7 @@ class Robot
   end
 
   def place(x_axis, y_axis, direction)
-    if isRobotSafeToMakeItsNextMove(x_axis, y_axis)
+    if robot_safe_to_move?([x_axis, y_axis])
       @projected_direction = direction
       @x_axis = x_axis
       @y_axis = y_axis
@@ -32,7 +33,7 @@ class Robot
 
   def move
     next_possible_coordinates = possible_next_move
-    if isRobotSafeToMakeItsNextMove(next_possible_coordinates[0], next_possible_coordinates[1])
+    if robot_safe_to_move?(next_possible_coordinates)
       @x_axis = next_possible_coordinates[0]
       @y_axis = next_possible_coordinates[1]
     else
@@ -42,14 +43,14 @@ class Robot
 
   def left
     current_direction_index = CARDINAL_DIRECTIONS.keys.index(@projected_direction)
-    new_direction_index = current_direction_index === 0 ? CARDINAL_DIRECTIONS.length - 1 : current_direction_index - 1
+    new_direction_index = current_direction_index.zero? ? CARDINAL_DIRECTIONS.length - 1 : current_direction_index - 1
     new_direction = CARDINAL_DIRECTIONS.keys[new_direction_index]
     @projected_direction = new_direction
   end
 
   def right
     current_direction_index = CARDINAL_DIRECTIONS.keys.index(@projected_direction)
-    new_direction_index = current_direction_index === CARDINAL_DIRECTIONS.length - 1 ? 0 : current_direction_index + 1
+    new_direction_index = current_direction_index == CARDINAL_DIRECTIONS.length - 1 ? 0 : current_direction_index + 1
     new_direction = CARDINAL_DIRECTIONS.keys[new_direction_index]
     @projected_direction = new_direction
   end
@@ -61,9 +62,8 @@ class Robot
     position
   end
 
-  def isRobotSafeToMakeItsNextMove(x_axis, y_axis)
-    requested_position = [x_axis.to_i, y_axis.to_i]
-    valid_move_array_check = requested_position.map do |position|
+  def robot_safe_to_move?(requested_coordinates)
+    valid_move_array_check = requested_coordinates.map do |position|
       position.negative? || position > MAX_TABLE_POSITION_LIMIT
     end
     valid_move_array_check.include?(true) ? false : true
