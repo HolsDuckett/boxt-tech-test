@@ -5,6 +5,8 @@ class Robot
   CARDINAL_DIRECTIONS = { 'NORTH' => ['y', 1], 'EAST' => ['x', 1], 'SOUTH' => ['y', -1], 'WEST' => ['x', -1] }.freeze
   MAX_TABLE_POSITION_LIMIT = 4
 
+  attr_reader :projected_direction, :x_axis, :y_axis
+
   def initialize(x_axis, y_axis, direction)
     @projected_direction = direction
     @x_axis = x_axis
@@ -36,6 +38,7 @@ class Robot
     if robot_safe_to_move?(next_possible_coordinates)
       @x_axis = next_possible_coordinates[0]
       @y_axis = next_possible_coordinates[1]
+      puts "We're moving and grooving!"
     else
       warning_message
     end
@@ -56,9 +59,9 @@ class Robot
   end
 
   def possible_next_move
-    position = [@x_axi.to_i, @y_axi.to_i]
+    position = [@x_axis, @y_axis]
     cardinal_directions = CARDINAL_DIRECTIONS[@projected_direction]
-    cardinal_directions[0] == 'y' ? position[1] = + cardinal_directions[1] : position[0] = + cardinal_directions[1]
+    cardinal_directions[0] == 'y' ? position[1] += cardinal_directions[1] : position[0] += cardinal_directions[1]
     position
   end
 
