@@ -1,5 +1,16 @@
 # BOXT TOY ROBOT
 
+### Description
+
+- The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units
+x 5 units
+
+- There are no other obstructions on the table surface
+
+- The robot is free to roam around the surface of the table, but must be prevented from falling to
+destruction. Any movement that would result in the robot falling from the table must be
+prevented, however further valid movement commands must still be allowed
+
 ### Prerqusites
 Ruby installed
 A taste for the fun things in life (aka robot applications 🤖)
@@ -11,19 +22,19 @@ run bundle to install all gems
 In your console run `irb -r ./main.rb` 
 And enjoy ;)
 
-Accepted commands are:
-* PLACE X,Y,F (X: number, Y: number F: cardinal direction e.g NORTH, EAST, SOUTH or WEST)
-* MOVE
-* LEFT -> this will rotate your robot 90 degrees anti clockwise (e.g from facing NORTH to facing WEST)
-* RIGHT -> this will rotate your robot 90 degrees clockwise (e.g from facing NORTH to facing EAST)
-* REPORT -> this will output your current location in format X,Y,DIRECTION
+Accepted commands are: 
+* PLACE X,Y,F ➡️ (X: number, Y: number F: cardinal direction e.g NORTH, EAST, SOUTH or WEST)
+* MOVE ➡️ will move the robot 1 space in the direction it is facing
+* LEFT ➡️ will rotate your robot 90 degrees anti clockwise (e.g from facing NORTH to facing WEST)
+* RIGHT ➡️ will rotate your robot 90 degrees clockwise (e.g from facing NORTH to facing EAST)
+* REPORT ➡️ will output your current location in format X,Y,DIRECTION
 
 ### Running tests
 To run the tests:
 cd into project repo
 run `rspec`
 
-### Example Input and Output
+### Test data and Results
 
 * PLACE 0,0,NORTH
 * MOVE
