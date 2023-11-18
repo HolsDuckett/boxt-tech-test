@@ -12,43 +12,16 @@ class Robot
         puts "Wooo we have a robot!"
     end
 
-    def possible_next_move
-        position = [@x_axi.to_i, @y_axi.to_i]
-        # for each axis we want to check if the direct plus teh array result will push the robot into the danger zone
-
-        // if youre facing north y + 1
-        // if youre facing east x + 1
-        // if youre facing south y - 1
-        // if youre facing west x - 1
-
-
+    def report
+        puts "Report: #{@x_axis},#{@y_axis},#{@projected_direction}"
     end
 
-    def isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction_facing)
-        requested_position = [x_axis.to_i, y_axis.to_i]
-        request_position.each { |position| position > MAX_TABLE_POSITION_LIMIT }
-
-        # refactor
-        puts x_axis > 4
-        puts y_axis
-        puts direction_facing
-        if x_axis > 4 || y_axis > 4
-            return false 
-        elsif direction_facing == "NORTH" 
-            y_axis == 4 ? false : true
-        elsif direction_facing == "EAST" 
-            x_axis == 4 ? false : true
-        elsif direction_facing == "SOUTH" 
-            y_axis == 0 ? false : true
-        elsif direction_facing == "WEST" 
-            x_axis == 0 ? false : true
-        else 
-            true
-        end
+    def warning_message
+        puts "Oooft that was a close one; you nearly had a tumble off the table there. Please try a different command."
     end
 
     def place(x_axis, y_axis, direction)
-        if  isRobotSafeToMakeItsNextMove(x_axis, y_axis, direction) 
+        if  isRobotSafeToMakeItsNextMove(x_axis, y_axis) 
             @projected_direction = direction
             @x_axis = x_axis
             @y_axis = y_axis
@@ -57,22 +30,23 @@ class Robot
         end
     end
     
-    def update_robots_coordinates
-        if direction_facing == CARDINAL_DIRECTIONS[0] 
-            @y_axis += 1
-        elsif direction_facing == CARDINAL_DIRECTIONS[1]
-            @x_axis += 1
-        elsif direction_facing == CARDINAL_DIRECTIONS[2] 
-            @y_axis -= 1
-        elsif direction_facing == CARDINAL_DIRECTIONS[3]
-            @x_axis -= 1
-        end
-    end
+    # def update_robots_coordinates
+    #     if direction_facing == CARDINAL_DIRECTIONS[0] 
+    #         @y_axis += 1
+    #     elsif direction_facing == CARDINAL_DIRECTIONS[1]
+    #         @x_axis += 1
+    #     elsif direction_facing == CARDINAL_DIRECTIONS[2] 
+    #         @y_axis -= 1
+    #     elsif direction_facing == CARDINAL_DIRECTIONS[3]
+    #         @x_axis -= 1
+    #     end
+    # end
 
     def move 
-        new_move
-        if isRobotSafeToMakeItsNextMove(@x_axis, @y_axis, @projected_direction) 
-        update_robots_coordinates
+        next_possible_coordinates = possible_next_move
+        if isRobotSafeToMakeItsNextMove(next_possible_coordinates) 
+            @x_axis = next_possible_coordinates[0]
+            @y_axis = next_possible_coordinates[1]
         else
             warning_message
         end
@@ -91,13 +65,16 @@ class Robot
         @projected_direction = new_direction
     end
 
-    def report
-        puts "Report: #{@x_axis},#{@y_axis},#{@projected_direction}"
+    def possible_next_move
+        position = [@x_axi.to_i, @y_axi.to_i]
+        cardinal_directions = CARDINAL_DIRECTIONS[@projected_direction]
+        cardinal_directions[0] == "y" ? position[1] =+ cardinal_directions[1] : position[0] =+ cardinal_directions[1]
+        return postion
     end
 
-    def warning_message
-        puts "Oooft that was a close one; you nearly had a tumble off the table there. Please try a different command."
+    def isRobotSafeToMakeItsNextMove(x_axis, y_axis)
+        requested_position = [x_axis.to_i, y_axis.to_i]
+        valid_move_array_check = requested_position.map { | position | position.negative?() || position > MAX_TABLE_POSITION_LIMIT }
+        valid_move_array_check.include?(true) ? false : true
     end
-
-
 end

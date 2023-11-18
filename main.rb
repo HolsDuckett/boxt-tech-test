@@ -14,7 +14,8 @@ end
 loop do
     puts "Where shall we explore next on this table?"
     user_response = gets.chomp
-    game_command.execute_command(user_reponse, robot = "initialized")
+    puts "#{user_response} THIS SHOULD CHANGE"
+    game_command.diff(user_reponse, robot = "initialized")
 end
 
 
