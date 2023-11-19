@@ -7,11 +7,11 @@ describe GameCommands do
   let(:game_commands) { described_class.new }
 
   context 'initial_user_command_check' do
-    it 'should return true if the user response includes correctly formatted PLACE X,Y,F command' do
+    it 'should return true if the users response includes correctly formatted PLACE X,Y,F command' do
       expect(game_commands.initial_user_command_check('PLACE 0,0,WEST')).to be true
     end
 
-    it 'should return false if the user response includes any string other than the PLACE command' do
+    it 'should return false if the users response includes any string other than the PLACE command' do
       expect(game_commands.initial_user_command_check('MOVE')).to be false
       expect(game_commands.initial_user_command_check('RIGHT')).to be false
       expect(game_commands.initial_user_command_check('LEFT')).to be false
@@ -28,7 +28,7 @@ describe GameCommands do
   end
 
   context 'execute_command' do
-    it 'executes MOVE command on the robot' do
+    it 'executes the MOVE command on the robot' do
       command = 'MOVE'
       allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
       game_commands.initial_user_command_check('PLACE 0,0,NORTH')
@@ -37,7 +37,7 @@ describe GameCommands do
       game_commands.execute_command(command, true)
     end
 
-    it 'executes LEFT command on the robot' do
+    it 'executes the LEFT command on the robot' do
       command = 'LEFT'
       allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
       game_commands.initial_user_command_check('PLACE 0,0,NORTH')
@@ -46,7 +46,7 @@ describe GameCommands do
       game_commands.execute_command(command, true)
     end
 
-    it 'executes RIGHT command on the robot' do
+    it 'executes the RIGHT command on the robot' do
       command = 'RIGHT'
       allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
       game_commands.initial_user_command_check('PLACE 0,0,NORTH')
@@ -54,7 +54,7 @@ describe GameCommands do
       expect(robot).to receive(:right)
       game_commands.execute_command(command, true)
     end
-    it 'executes REPORT command on the robot' do
+    it 'executes the REPORT command on the robot' do
       command = 'REPORT'
       allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
       game_commands.initial_user_command_check('PLACE 0,0,NORTH')
@@ -62,7 +62,7 @@ describe GameCommands do
       expect(robot).to receive(:report)
       game_commands.execute_command(command, true)
     end
-    it 'executes PLACE command on the robot' do
+    it 'executes the PLACE command on the robot' do
       command = 'PLACE 1,1,EAST'
       allow(Robot).to receive(:new).with(1, 1, 'EAST').and_return(robot)
       game_commands.initial_user_command_check(command)
@@ -70,7 +70,7 @@ describe GameCommands do
       expect(robot).to receive(:place)
       game_commands.execute_command(command, true)
     end
-    it 'executes PLACE command on a new initialised robot when robot isnt initialised' do
+    it 'executes the PLACE command on a new initialised robot when robot isnt initialised' do
       command = 'PLACE 1,1,EAST'
       expect(Robot).to receive(:new).twice.with(1, 1, 'EAST').and_return(robot)
       game_commands.initial_user_command_check(command)

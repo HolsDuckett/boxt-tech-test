@@ -15,14 +15,13 @@ prevented, however further valid movement commands must still be allowed
 
 ### Prerequisites
 - Ruby installed
-- A taste for the fun things in life (aka robot applications 🤖)
+- A taste for the fun things in life (a.k.a robot applications 🤖)
 
 ### How to get started?
 1. Clones this repository
-2. cd into project repo
-3. run bundle to install all gems
-4. In your console run `irb -r ./main.rb` 
-5. And enjoy ;)
+2. Run `bundle` to install all gems
+3. In your console run `irb -r ./play_game.rb` 
+4. And enjoy!
 
 Accepted commands are: 
 * PLACE X,Y,F ➡️ (X: number, Y: number F: cardinal direction e.g NORTH, EAST, SOUTH or WEST)
@@ -54,6 +53,6 @@ run `rspec`
     * Output: 2,3,NORTH
 
 ### Future considerations
- To improve the quality of this application i would want to do the following:
-* Add a check to ensure the user was only able to enter PLACE X,Y,F in that exact format with X,Y as numbers
-* Allow the user the end the game in a user friendly manner - e.g END command
+ To improve the quality of this application I would want to do the following:
+* Add a check to ensure the user is only able to enter PLACE X,Y,F in that exact expected format with X & Y as numbers and F as a cardinal direction
+* Allow the user to end the game in a user friendly manner - e.g END command
