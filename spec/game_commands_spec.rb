@@ -3,13 +3,8 @@
 require 'game_commands'
 
 describe GameCommands do
-  let(:Robot) { class_double(Robot) }
   let(:robot) { instance_double(Robot, move: nil, left: nil, right: nil, report: nil, place: nil) }
   let(:game_commands) { described_class.new }
-
-  before do
-    GameCommands.any_instance.stub(:puts)
-  end
 
   context 'correct_initial_command_check' do
     it 'should return true if the user response includes correctly formatted PLACE X,Y,F command' do
@@ -26,43 +21,58 @@ describe GameCommands do
 
   context 'user_command_check' do
     it 'should output a warning if the command is not within the COMMAND constant' do
+      GameCommands.any_instance.stub(:puts)
       expect(game_commands.user_command_check('hello', 'initialized'))
       expect(game_commands).to have_received(:puts).with('Please use a valid command (robots arent usually sensitive but this one is cap sensitive): PLACE X,Y,F, MOVE, LEFT, RIGHT, REPORT')
     end
   end
 
-  # context 'execute_command' do
-  #   it 'executes MOVE command on the robot' do
-  #     # allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-  #     expect(robot).to receive(:move)
-  #     @game_command.execute_command('MOVE', 'initialized')
-  #   end
+  context 'execute_command' do
+    it 'executes MOVE command on the robot' do
+      allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
+      game_commands.correct_initial_command_check('PLACE 0,0,NORTH')
+      allow(robot).to receive(:move)
+      expect(robot).to receive(:move)
+      game_commands.execute_command('MOVE', true)
+    end
 
-    # it 'executes LEFT command on the robot' do
-    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-    #     @game_command.execute_command('LEFT', 'initialized')
-    #     expect(robot).to respond_to(:left)
-    #   end
+    it 'executes LEFT command on the robot' do
+      allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
+      game_commands.correct_initial_command_check('PLACE 0,0,NORTH')
+      allow(robot).to receive(:left)
+      expect(robot).to receive(:left)
+      game_commands.execute_command('LEFT', true)
+    end
 
-    #   it 'executes RIGHT command on the robot' do
-    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-    #     @game_command.execute_command('RIGHT', 'initialized')
-    #     expect(robot).to respond_to(:right)
-    #   end
-    #   it 'executes REPORT command on the robot' do
-    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-    #     @game_command.execute_command('REPORT', 'initialized')
-    #     expect(robot).to respond_to(:report)
-    #   end
-    #   it 'executes PLACE command on the robot' do
-    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-    #     @game_command.execute_command('PLACE 1,1,WEST', 'initialized')
-    #     expect(robot).to respond_to(:place)
-    #   end
-    #   it 'executes PLACE command on a new initialised robot when robot isnt initialised' do
-    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-    #     @game_command.execute_command('PLACE 1,1,WEST', nil)
-    #     expect(robot).to respond_to(:place)
-    #   end
-  # end
+      it 'executes RIGHT command on the robot' do
+        command = 'RIGHT'
+        allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
+        game_commands.correct_initial_command_check('PLACE 0,0,NORTH')
+        allow(robot).to receive(:right)
+        expect(robot).to receive(:right)
+        game_commands.execute_command(command, true)
+      end
+      it 'executes REPORT command on the robot' do
+        command = 'REPORT'
+        allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
+        game_commands.correct_initial_command_check('PLACE 0,0,NORTH')
+        allow(robot).to receive(:report)
+        expect(robot).to receive(:report)
+        game_commands.execute_command(command, true)
+      end
+      it 'executes PLACE command on the robot' do
+        command = 'PLACE 1,1,EAST'
+        allow(Robot).to receive(:new).with(0, 0, 'NORTH').and_return(robot)
+        game_commands.correct_initial_command_check('PLACE 0,0,NORTH')
+        allow(robot).to receive(:place)
+        expect(robot).to receive(:place)
+        game_commands.execute_command(command, true)
+      end
+      it 'executes PLACE command on a new initialised robot when robot isnt initialised' do
+        command = 'PLACE 1,1,EAST'
+        expect(Robot).to receive(:new).twice.with(1, 1, 'EAST').and_return(robot)
+        game_commands.correct_initial_command_check(command)
+        game_commands.execute_command(command, nil)
+      end
+  end
 end

@@ -5,8 +5,6 @@ require_relative 'robot'
 # Service to parse commands from the user to the robot service
 class GameCommands
 
-#   attr_reader :robot
-
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
   def correct_initial_command_check(user_command)
