@@ -13,7 +13,7 @@ x 5 units
 destruction. Any movement that would result in the robot falling from the table must be
 prevented, however further valid movement commands must still be allowed
 
-### Prerqusites
+### Prerequisites
 - Ruby installed
 - A taste for the fun things in life (aka robot applications 🤖)
 

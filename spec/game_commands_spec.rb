@@ -3,7 +3,7 @@
 require 'game_commands'
 
 describe GameCommands do
-  let(:robot) { class_double(Robot) }
+  let(:Robot) { class_double(Robot) }
   let(:robot) { instance_double(Robot, move: nil, left: nil, right: nil, report: nil, place: nil) }
 
   before do
@@ -11,7 +11,15 @@ describe GameCommands do
     GameCommands.any_instance.stub(:puts)
   end
 
+  context 'execute_command' do
+    it 'executes MOVE command on the robot' do
+      allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+      # robot = Robot.new(0,0,"WEST")
+      expect(robot).to receive(:move)
+      @game_command.execute_command('MOVE', true)
 
+    end
+  end
   context 'correct_initial_command_check' do
     it 'should return true if the user response includes correctly formatted PLACE X,Y,F command' do
       expect(@game_command.correct_initial_command_check('PLACE 0,0,WEST')).to be true
@@ -32,38 +40,38 @@ describe GameCommands do
     end
   end
 
-#   context 'execute_command' do
-#     it 'executes MOVE command on the robot' do
-#       allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#       @game_command.execute_command('MOVE', 'initialized')
-#       expect(robot).to respond_to(:move)
-#     end
-#     it 'executes LEFT command on the robot' do
-#         allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#         @game_command.execute_command('LEFT', 'initialized')
-#         expect(robot).to respond_to(:left)
-#       end
+  context 'execute_command' do
+    it 'executes MOVE command on the robot' do
+      # allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+      expect(robot).to receive(:move)
+      @game_command.execute_command('MOVE', 'initialized')
 
-#       it 'executes RIGHT command on the robot' do
-#         allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#         @game_command.execute_command('RIGHT', 'initialized')
-#         expect(robot).to respond_to(:right)
-#       end
-#       it 'executes REPORT command on the robot' do
-#         allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#         @game_command.execute_command('REPORT', 'initialized')
-#         expect(robot).to respond_to(:report)
-#       end
-#       it 'executes PLACE command on the robot' do
-#         allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#         @game_command.execute_command('PLACE 1,1,WEST', 'initialized')
-#         expect(robot).to respond_to(:place)
-#       end
-#       it 'executes PLACE command on a new initialised robot when robot isnt initialised' do
-#         allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
-#         @game_command.execute_command('PLACE 1,1,WEST', nil)
-#         expect(robot).to respond_to(:place)
-#       end
-#   end
+    end
+    # it 'executes LEFT command on the robot' do
+    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+    #     @game_command.execute_command('LEFT', 'initialized')
+    #     expect(robot).to respond_to(:left)
+    #   end
 
+    #   it 'executes RIGHT command on the robot' do
+    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+    #     @game_command.execute_command('RIGHT', 'initialized')
+    #     expect(robot).to respond_to(:right)
+    #   end
+    #   it 'executes REPORT command on the robot' do
+    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+    #     @game_command.execute_command('REPORT', 'initialized')
+    #     expect(robot).to respond_to(:report)
+    #   end
+    #   it 'executes PLACE command on the robot' do
+    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+    #     @game_command.execute_command('PLACE 1,1,WEST', 'initialized')
+    #     expect(robot).to respond_to(:place)
+    #   end
+    #   it 'executes PLACE command on a new initialised robot when robot isnt initialised' do
+    #     allow(Robot).to receive(:new).with(0, 0, 'WEST').and_return(robot)
+    #     @game_command.execute_command('PLACE 1,1,WEST', nil)
+    #     expect(robot).to respond_to(:place)
+    #   end
+  end
 end
