@@ -54,7 +54,6 @@ run `rspec`
     * Output: 2,3,NORTH
 
 ### Future considerations
-* To improve the quality of this application i would want to do the following:
+ To improve the quality of this application i would want to do the following:
 * Add a check to ensure the user was only able to enter PLACE X,Y,F in that exact format with X,Y as numbers
 * Allow the user the end the game in a user friendly manner - e.g END command
-* Amend the commands to not be case sensitive e.g right & RIGHT would do the same thing
