@@ -2,25 +2,25 @@
 
 require_relative 'robot'
 
-# Service to parse commands from the user to the robot service
+# Service to parse console commands from the user to the robot service
 class GameCommands
 
   COMMANDS = %w[PLACE MOVE LEFT RIGHT REPORT].freeze
 
-  def correct_initial_command_check(user_command)
+  def initial_user_command_check(user_response)
     initial_valid_command = COMMANDS[0]
 
-    return false unless user_command.split[0] == initial_valid_command
+    return false unless user_response.upcase.split[0] == initial_valid_command
 
-    execute_command(user_command, robot = nil)
+    execute_command(user_response.upcase, robot = nil)
     true
   end
 
   def user_command_check(user_response, is_robot_initialized)
-    if COMMANDS.include?(user_response.split[0])
-      execute_command(user_response, is_robot_initialized)
+    if COMMANDS.include?(user_response.upcase.split[0])
+      execute_command(user_response.upcase, is_robot_initialized)
     else
-      puts 'Please use a valid command (robots arent usually sensitive but this one is cap sensitive): PLACE X,Y,F, MOVE, LEFT, RIGHT, REPORT'
+      puts 'Please use a valid command: PLACE X,Y,F, MOVE, LEFT, RIGHT, REPORT'
     end
   end
 
