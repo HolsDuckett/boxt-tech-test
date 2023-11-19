@@ -14,5 +14,5 @@ end
 loop do
   puts 'Where shall we explore next on this table?'
   user_response = gets.chomp
-  game_command.user_command_check(user_response, robot = 'initialized')
+  game_command.user_command_check(user_response, true)
 end
